@@ -4,14 +4,14 @@ angular.module('gtrApp')
   .provider('PullFetcher', function () {
     var baseUrl = 'https://api.github.com';
 
-    this.$get = ['$http', '$q', function ($http, $q) {
-
+    this.$get = ['$http', '$q', 'UserManager', function ($http, $q, UserManager) {
       var currentTeam,
         currentApiUrl,
         authHeader;
 
       var pullFetcher = {
         pulls: {},
+        usersPulling: {},
         setTeam: function (team) {
           currentTeam   = team;
           currentApiUrl = team.apiUrl || baseUrl;
@@ -34,6 +34,7 @@ angular.module('gtrApp')
             request(pull.url).then(function (response) {
               if (response.data.state === 'closed') {
                 delete self.pulls[id];
+                UserManager.removeUserPulling(pull);
               }
             });
           });
@@ -93,7 +94,9 @@ angular.module('gtrApp')
               getRepoPulls(repo).then(function (pulls) {
                 pulls.forEach(function (pull) {
                   pullFetcher.pulls[pull.id] = pull;
+                  UserManager.addUserPulling(pull);
                 });
+                UserManager.refreshUsersPulls();
               });
             });
             if (response.data.length) {
@@ -101,7 +104,6 @@ angular.module('gtrApp')
             }
           });
       };
-
       return pullFetcher;
     }];
   });

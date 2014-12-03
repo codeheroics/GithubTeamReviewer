@@ -4,6 +4,28 @@
 </header>
 
 <div class="container">
+    <ul class="users" ng-if="users">
+        <li ng-repeat="user in users" class="users">
+            <a ng-href="{{user.html_url}}">
+                <img
+                class="avatar"
+                ng-src="{{ user.avatar_url}}"
+                title="{{ user.login }}"
+                ng-class="{
+                    failure: user.pullsState === 'failure',
+                    error: user.pullsState === 'error',
+                    success: user.pullsState === 'success',
+                    pending: user.pullsState === 'pending'
+                }">
+            </a>
+            <legend>
+                <ul class="pullsStates">
+                    <li ng-repeat="pull in user.pulls" class="{{pull.statuses[0].state}}">
+                    </li>
+                </ul>
+            </legend>
+        </li>
+    </ul>
     <ul class="pulls">
         <li ng-repeat="pr in toArray(pulls) | orderBy:'updated_at':descendingOrder" ng-class="pr.statuses[0].state" class="status">
             <span class="link"><img class="avatar" ng-src="{{ pr.user.avatar_url}}" title="{{ pr.user.login }}" /><a ng-href="{{pr.html_url}}" >#{{ pr.number }} {{ pr.title }}</a></span>

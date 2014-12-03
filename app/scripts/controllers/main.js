@@ -1,8 +1,11 @@
 'use strict';
 
 angular.module('gtrApp')
-  .controller('MainCtrl', function ($scope, $location, $interval, PullFetcher, config, team) {
+  .controller('MainCtrl', function ($scope, $location, $interval, UserManager, PullFetcher, config, team) {
     $scope.pulls = PullFetcher.pulls;
+    if (config.usersDisplay) {
+      $scope.users = UserManager.users;
+    }
     $scope.teams = config.teams;
     $scope.team  = team;
 

@@ -1,11 +1,14 @@
 body {
   background-color: #ecf0f1;
-  color: #efefef;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+ul {
+  list-style: none;
 }
 
 .header-top {
@@ -25,7 +28,7 @@ a {
 .header-top select {
   float: right;
   margin-right: 6px;
-} 
+}
 
 .header-users {
   background-color: #3cc0bf;
@@ -36,9 +39,9 @@ a {
 }
 
 ul.pulls {
-  list-style: none;
   padding: 0;
   margin: 0;
+  color: #efefef;
 }
 
 ul.pulls li {
@@ -76,6 +79,60 @@ ul.pulls .date {
 }
 ul.pulls .repo {
     font-weight: bold;
+}
+
+ul.users {
+  text-align: center;
+  padding: 0;
+}
+
+ul.users > li {
+  display: inline-block;
+  margin: 0 1em;
+}
+
+ul.users > li img {
+  height: 5em;
+  width: 5em;
+  border: 0.5em solid #000000;
+  border-radius: 50%;
+}
+
+ul.users > li img.error, ul.users > li img.failure {
+  border-color: #ac3939;
+}
+ul.users > li img.success {
+  border-color: #39c5a0;
+}
+ul.users > li img.pending {
+  border-color: #cea61b;
+}
+
+ul.pullsStates {
+  margin: 0;
+  padding: 0;
+  max-width: 6em;
+}
+
+ul.pullsStates li {
+  margin: 0 0.25em;
+  display: inline-block;
+  border-radius: 50%;
+  min-width: 1em;
+  min-height: 1em;
+}
+
+ul.pullsStates li {
+  background-color: #202831;
+}
+ul.pullsStates li.success {
+  background-color: #39c5a0;
+}
+ul.pullsStates li.error, ul.pullsStates li.failure {
+  background-color: #ac3939;
+}
+ul.pullsStates li.pending {
+  background-color: #cea61b;
 }
 
 .pull-right {
